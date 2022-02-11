@@ -16,7 +16,7 @@ const JWT_SECRET="Harryisagoodb$oy";
 router.post('/createuser',[ body('email','Enter a valid Email').isEmail(),
 body('password','Password Must Be atleast 5 characters').isLength({ min: 5 }),
 body('name','Enter a valid name').isLength({ min: 3 }),],async(req,res)=>{
- //If there are errors return the errors
+ //If there are errors return the errors and the bad requests
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -106,4 +106,7 @@ res.send(user);
     res.status(500).send("Internal Server  Error Occured");
 }
 })
+
+
+
 module.exports=router
