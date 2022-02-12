@@ -54,7 +54,20 @@ console.log("adding a note")
 setnotes(notes.concat(note))//here contact return new array
 }
   //Delete a node
-const deleteNote=(id)=>{
+ 
+const deleteNote=async (id)=>{
+  //Api call
+  const response = await fetch(`${host}/api/notes/deletenote/${id}`, {
+    method: 'DELETE', 
+   
+    headers: {
+      'Content-Type': 'application/json',
+      'auth-token':'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjIwNjQ3MzAwMjBkZWJkMjAwOTg0NThhIn0sImlhdCI6MTY0NDY3NjI2OH0.BpK5dk6IA2GRqY3VSUn-JjkC9QFZICSm2d7KbdcDBmk'
+    },
+  
+    
+  });
+  const json= response.json(); 
 console.log("Deleting the node"+id);
 const newNotes=notes.filter((note)=>{
   return note._id!=id;
