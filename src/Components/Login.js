@@ -33,17 +33,17 @@ function Login() {
   return (
     <div className='container'>
        <form  onSubmit={handleSubmit}>
-  <div class="mb-3">
-    <label htmlFor="email" class="form-label">Email address</label>
-    <input type="email" value={credentials.email} class="form-control" onChange={onchange} id="email" name='email' aria-describedby="emailHelp"/>
-    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+  <div className="mb-3">
+    <label htmlFor="email" className="form-label">Email address</label>
+    <input type="email" value={credentials.email} className="form-control" onChange={onchange} id="email" name='email' aria-describedby="emailHelp"/>
+    <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
   </div>
-  <div class="mb-3">
-    <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" onChange={onchange} name="password" value={credentials.password} id="password"/>
+  <div className="mb-3">
+    <label for="password" className="form-label">Password</label>
+    <input type="password" className="form-control" onChange={onchange} name="password" value={credentials.password} id="password"/>
   </div>
 
-  <button type="submit" class="btn btn-primary">Submit</button>
+  <button type="submit" className="btn btn-primary">Submit</button>
 </form>
     </div>
   )
