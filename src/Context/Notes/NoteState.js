@@ -40,17 +40,7 @@ const addNote=async(title,description,tag)=>{
     body: JSON.stringify({title,description,tag}) 
   });
  
-
-let note= {
-  "_id": "6206788b6052c61cb110e396",
-  "user": "62064730020debd20098458a",
-  "title": title,
-  "description": description,
-  "tag": tag,
-  "date": "2022-02-11T14:54:03.517Z",
-  "__v": 0
-};
-console.log("adding a note")
+const note=await response.json();
 setnotes(notes.concat(note))//here contact return new array
 }
   //Delete a node
@@ -67,8 +57,8 @@ const deleteNote=async (id)=>{
   
     
   });
-  const json= response.json(); 
-console.log("Deleting the node"+id);
+  const json= await response.json(); 
+
 const newNotes=notes.filter((note)=>{
   return note._id!=id;
   })
@@ -89,7 +79,7 @@ const editNote=async (id,title,description,tag)=>{
     body: JSON.stringify({title,description,tag}) 
   });
   const json= await response.json(); 
-  console.log(json);
+  
     let newNotes=JSON.parse(JSON.stringify(notes))
   //Logic to added  in client
   for(let index=0;index<notes.length;index++){

@@ -78,6 +78,8 @@ const onchange=(e)=>{
                       name="etitle"
                       aria-describedby="emailHelp"
                       onChange={onchange}
+                      minLength={5}
+                      required
                     />
                   </div>
                   <div className="mb-3">
@@ -103,6 +105,7 @@ const onchange=(e)=>{
                       id="etag" value={note.etag}
                       name="etag"
                       onChange={onchange}
+                   
                     />
                   </div>
                  
@@ -117,7 +120,7 @@ const onchange=(e)=>{
                 >
                   Close
                 </button>
-                <button type="button" onClick={handleClick} className="btn btn-primary">
+                <button type="button" disabled={note.etitle.length<=5||note.edescription.length<=5} onClick={handleClick} className="btn btn-primary">
                  Update Note
                 </button>
               </div>
@@ -127,6 +130,7 @@ const onchange=(e)=>{
       </div>
       <div className="row my-3">
         <h2 className="text-center my-3">Your notes</h2>
+        {notes.length===0 && 'No Notes to display'}
         {notes.map((note) => {
           return (
             <NoteItem key={note._id} note={note} updateNote={updateNote} />
