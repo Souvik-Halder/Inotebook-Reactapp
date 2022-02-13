@@ -1,16 +1,23 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import noteContext from "../Context/Notes/noteContext";
 import AddNote from "./AddNote";
 import NoteItem from "./NoteItem";
+
 function NotesFrnt(props) {
   const context=useContext(noteContext);
 
-
+let navigate=useNavigate();
 
   const { notes, getNotes,editNote} = context; //Taking notes and setnotes from notecontext and it is stored in context
   useEffect(() => {
-    getNotes();
+    if(!localStorage.getItem('token')){
+    navigate('/login');
+    }
+    else{
+      getNotes();
+    }
   }, []);
   const handleClick=(e)=>{
     e.preventDefault();
