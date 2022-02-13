@@ -1,5 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
+import React,{useState} from 'react';
 import {
   BrowserRouter as Router,
   Routes,
@@ -15,18 +16,26 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 
 function App() {
+  
+  const[alert,setAlert]=useState(null);
+  const showAlert=(message,type)=>{
+    setAlert({
+      msg: message,
+      type: type
+    });
+    }
   return (
    <>
    <NoteState>
    <Router>
-     <Alert message={"This is amazing react course"}/>
+     <Alert alert={alert}/>
    <Navbar/>
    <Routes>
-        <Route path="/" element={<Home/>} />
+        <Route path="/" element={<Home showAlert={showAlert}/>} />
 
         <Route path="/about" element={<About/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/signup" element={<Signup/>} />
+        <Route path="/login" element={<Login showAlert={showAlert}/>} />
+        <Route path="/signup" element={<Signup showAlert={showAlert}/>} />
       </Routes>
       </Router>
       </NoteState>

@@ -2,7 +2,7 @@ import React, {useContext, useState } from 'react'
 import noteContext from '../Context/Notes/noteContext';
 
 
-function AddNote() {
+function AddNote(props) {
     const context=useContext(noteContext);
   const {notes,addNote}=context;//Taking notes and setnotes from notecontext and it is stored in context
   const  [note, setnote] = useState({title:"",description:"",tag:""})
@@ -12,7 +12,9 @@ setnote({...note,[e.target.name]:e.target.value});//That means note jaisa hai us
 const handleClick=(e)=>{
     e.preventDefault();
     addNote(note.title,note.description,note.tag);
-    setnote({title:"",description:"",tag:""})
+    setnote({title:"",description:"",tag:""});
+    props.showAlert("Added Successfully","success");
+    
 }
   return (
     <div>

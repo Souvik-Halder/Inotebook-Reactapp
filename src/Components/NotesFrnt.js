@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import noteContext from "../Context/Notes/noteContext";
 import AddNote from "./AddNote";
 import NoteItem from "./NoteItem";
-function NotesFrnt() {
+function NotesFrnt(props) {
   const context=useContext(noteContext);
 
 
@@ -28,10 +28,11 @@ const onchange=(e)=>{
   const updateNote = (currentNote) => {
     ref.current.click();
     setnote({id:currentNote._id, etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag});
+    props.showAlert("Updated Successfully","success")
   };
   return (
     <>
-      <AddNote />
+      <AddNote showAlert={props.showAlert}/>
 
       <div className="container">
         <button
@@ -133,7 +134,7 @@ const onchange=(e)=>{
         {notes.length===0 && 'No Notes to display'}
         {notes.map((note) => {
           return (
-            <NoteItem key={note._id} note={note} updateNote={updateNote} />
+            <NoteItem key={note._id} note={note} showAlert={props.showAlert} updateNote={updateNote} />
           );
         })}
       </div>
