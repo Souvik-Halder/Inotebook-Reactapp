@@ -8,23 +8,26 @@ function NotesFrnt() {
 
 
 
-  const { notes, getNotes} = context; //Taking notes and setnotes from notecontext and it is stored in context
+  const { notes, getNotes,editNote} = context; //Taking notes and setnotes from notecontext and it is stored in context
   useEffect(() => {
     getNotes();
   }, []);
   const handleClick=(e)=>{
     e.preventDefault();
-    console.log("Updating the note..",note);
+    
+    editNote(note.id,note.etitle,note.edescription,note.etag);
+    refClose.current.click();
    
 }
 const onchange=(e)=>{
   setnote({...note,[e.target.name]:e.target.value});//That means note jaisa hai use aise hi rehne dete hain aur replace karte hain empty string ko input ke through
   }
   const ref = useRef(null);
-  const  [note, setnote] = useState({etitle:"",edescription:"",etag:"default"})
+  const refClose = useRef(null)
+  const  [note, setnote] = useState({id:" " ,etitle:"",edescription:"",etag:"default"})
   const updateNote = (currentNote) => {
     ref.current.click();
-    setnote({etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag});
+    setnote({id:currentNote._id, etitle:currentNote.title,edescription:currentNote.description,etag:currentNote.tag});
   };
   return (
     <>
@@ -108,6 +111,7 @@ const onchange=(e)=>{
               <div className="modal-footer">
                 <button
                   type="button"
+                  ref={refClose}
                   className="btn btn-secondary"
                   data-bs-dismiss="modal"
                 >

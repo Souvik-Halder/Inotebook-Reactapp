@@ -78,8 +78,8 @@ const newNotes=notes.filter((note)=>{
 const editNote=async (id,title,description,tag)=>{
   //Api call
 
-  const response = await fetch(`${host}/api/notes/updatenote/62066f6503afc5dd2e513b7f`, {
-    method: 'POST', 
+  const response = await fetch(`${host}/api/notes/updatenote/${id}`, {
+    method: 'PUT', 
    
     headers: {
       'Content-Type': 'application/json',
@@ -88,18 +88,21 @@ const editNote=async (id,title,description,tag)=>{
   
     body: JSON.stringify({title,description,tag}) 
   });
-  const json= response.json(); 
-
+  const json= await response.json(); 
+  console.log(json);
+    let newNotes=JSON.parse(JSON.stringify(notes))
   //Logic to added  in client
   for(let index=0;index<notes.length;index++){
-    const element =notes[index];
+    const element =newNotes[index];
     if(element._id===id){
-      element.title=title;
-      element.tag=tag;
-      element.description=description;
-
+      newNotes[index].title=title;
+      newNotes[index].tag=tag;
+      newNotes[index].description=description;
+      break;
     }
+   
   }
+  setnotes(newNotes);
 
 }
 
