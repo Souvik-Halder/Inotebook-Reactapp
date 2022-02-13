@@ -17,6 +17,7 @@ router.post('/createuser',[ body('email','Enter a valid Email').isEmail(),
 body('password','Password Must Be atleast 5 characters').isLength({ min: 5 }),
 body('name','Enter a valid name').isLength({ min: 3 }),],async(req,res)=>{
  //If there are errors return the errors and the bad requests
+ let success=false;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
@@ -27,7 +28,7 @@ const secpass=await bcrypt.hash(req.body.password,salt);
     try{
     let user=await User.findOne({email:req.body.email})
     if(user){
-        return res.status(400).json({errors:'Please enter a valid email'});
+        return res.status(400).json({success,errors:'Please enter a valid email'});
     }
    user= await User.create({
         email:req.body.email,
@@ -46,8 +47,8 @@ const secpass=await bcrypt.hash(req.body.password,salt);
         }
     }
     const authtoken=jwt.sign(data,JWT_SECRET);
-  
-    res.json({authtoken});
+   success=true;
+    res.json({success,authtoken});
     }catch(error){
         console.log("error.message");
         res.status(500).send("Internal Server Error Occured");
